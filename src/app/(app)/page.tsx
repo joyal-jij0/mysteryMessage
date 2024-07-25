@@ -49,7 +49,7 @@ export default function Home(){
 
       </main>
       <footer className="text-center p-4 md:p-6">
-        © 2023 Mystery Message. All rights reserved
+        © 2024 Mystery Message. All rights reserved
       </footer>
     </>
   )
