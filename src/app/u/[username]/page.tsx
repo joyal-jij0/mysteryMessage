@@ -79,22 +79,21 @@ function Page() {
     setIsSuggestButtonLoading(true);
     try {
       const result = await axios.post("/api/suggest-messages");
-      console.log(result)
-    //   const response = result.data.message.candidates[0].content.parts[0].text;
-    const response = result.data.message;
-    console.log(response)
-      setText(response);
-      return response;
+      const response = result.data.message;
+      console.log("New suggested messages:", response);
+      setText(response); // This should trigger a re-render with new messages
     } catch (error: any) {
+      console.error("Error suggesting messages:", error);
       toast({
-        title: "error",
-        description: error.message,
+        title: "Error",
+        description: error.response?.data?.message || error.message || "An unexpected error occurred",
         variant: "destructive",
       });
     } finally {
       setIsSuggestButtonLoading(false);
     }
   }
+
   return (
     <div className="container mx-auto my-8 p-6 bg-white rounded max-w-4xl">
       <h1 className="text-4xl font-bold mb-6 text-center">
@@ -148,29 +147,19 @@ function Page() {
           <p>Click on any message below to select it.</p>
         </div>
         <Card>
-          <CardHeader className="font-bold "> Messages</CardHeader>
-          <CardContent className="flex flex-col space-y-4">
-            {text == ""
-              ? StringSplit(initialMessageString).map((data, index) => (
-                  <Button
-                    className="bg-transparent border  text-black hover:bg-white"
-                    key={index}
-                    onClick={() => handleTextMessage(data)}
-                  >
-                    {data}
-                  </Button>
-                ))
-              : StringSplit(text).map((data, index) => (
-                  <Button
-                    className="bg-transparent border  text-black hover:bg-white"
-                    key={index}
-                    onClick={() => handleTextMessage(data)}
-                  >
-                    {data}
-                  </Button>
-                ))}
-          </CardContent>
-        </Card>
+  <CardHeader className="font-bold">Messages</CardHeader>
+  <CardContent className="flex flex-col space-y-4">
+    {(text ? StringSplit(text) : StringSplit(initialMessageString)).map((data, index) => (
+      <Button
+        className="bg-transparent border text-black hover:bg-white w-full text-left whitespace-normal h-auto py-2"
+        key={index}
+        onClick={() => handleTextMessage(data)}
+      >
+        {data}
+      </Button>
+    ))}
+  </CardContent>
+</Card>
       </div>
       <Separator className="my-6" />
       <div className="text-center">
