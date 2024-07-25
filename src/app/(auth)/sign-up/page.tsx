@@ -71,7 +71,7 @@ export default function page(){
       router.replace(`/verify/${username}`)
       setIsSubmitting(false)
     } catch (error) {
-      console.error("Erro in singup of user", error)
+      console.error("Error in singup of user", error)
       const axiosError = error as AxiosError<ApiResponse>;
       let errorMessage = axiosError.response?.data.message
       toast({
