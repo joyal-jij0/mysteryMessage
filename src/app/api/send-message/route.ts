@@ -39,7 +39,7 @@ export async function POST(request: Request){
             {
                 success: true,
                 message: "message sent succesfully"
-            }, {status: 401}
+            }, {status: 200}
         )
 
     } catch (error) {
