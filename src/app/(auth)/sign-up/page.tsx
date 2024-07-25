@@ -146,6 +146,7 @@ export default function page(){
                   </FormItem>
                 )}
               />
+              <div className="flex space-x-2 md:space-x-4">
               <Button type="submit" disabled={isSubmitting}>
                 {
                   isSubmitting ? (
@@ -155,6 +156,8 @@ export default function page(){
                   ) : ('Signup')
                 }
               </Button>
+              <Link href="sign-in"><Button>Nav to Sign in with a demo acc</Button></Link>
+              </div>
             </form>
           </Form>
           <div className="text-center mt-4">
