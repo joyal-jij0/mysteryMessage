@@ -114,7 +114,7 @@ export default function page(){
                     </FormControl>
                     {isCheckingUsername && <Loader2 className="animate-spin"/>}
                     <p className={`text-sm ${usernameMessage ==="Username is unique" ? "text-green-500" : "text-red-500"}`}>
-                      test {usernameMessage}
+                    {usernameMessage}
                     </p>
                     <FormMessage />
                   </FormItem>
@@ -127,7 +127,7 @@ export default function page(){
                   <FormItem>
                     <FormLabel> Email </FormLabel>
                     <FormControl>
-                      <Input placeholder="username" {...field}/>
+                      <Input placeholder="email" {...field}/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -140,7 +140,7 @@ export default function page(){
                   <FormItem>
                     <FormLabel> Password </FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder="username" {...field}/>
+                      <Input type="password" placeholder="password" {...field}/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -161,7 +161,7 @@ export default function page(){
             <p>
               Already a member?{' '}
               <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">
-                Sign in
+                Log in
               </Link>
             </p>
           </div>
