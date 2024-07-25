@@ -1,5 +1,5 @@
-import { createGoogleGenerativeAI, google } from '@ai-sdk/google';
-import { generateText, streamText } from 'ai';
+import { google } from '@ai-sdk/google';
+import { generateText } from 'ai';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
