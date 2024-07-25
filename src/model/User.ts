@@ -19,7 +19,7 @@ export interface User extends Document{
 const MessageSchema: Schema<Message> = new Schema({
     content: {
         type: String,
-        requred: true,
+        required: true,
     },
     createdAt: {
         type: Date,
