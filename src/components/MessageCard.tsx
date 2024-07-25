@@ -34,7 +34,24 @@ export default function MessageCard({message, onMessageDelete}: MessageCardProps
   const {toast} = useToast()
 
   const handleDeleteConfirm = async() => {
-    // ... (keep the existing logic)
+    try {
+      const response = await axios.delete<ApiResponse>(
+        `/api/delete-message/${message._id}`
+      );
+      toast({
+        title: response.data.message,
+      });
+      onMessageDelete(message._id as string);
+
+    } catch (error) {
+      const axiosError = error as AxiosError<ApiResponse>;
+      toast({
+        title: 'Error',
+        description:
+          axiosError.response?.data.message ?? 'Failed to delete message',
+        variant: 'destructive',
+      });
+    } 
   }
 
   return (
@@ -51,7 +68,21 @@ export default function MessageCard({message, onMessageDelete}: MessageCardProps
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
-              {/* ... (keep the existing AlertDialog content) */}
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete
+                  this message.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>
+                  Cancel
+                </AlertDialogCancel>
+                <AlertDialogAction onClick={handleDeleteConfirm}>
+                  Continue
+                </AlertDialogAction>
+              </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
         </div>
