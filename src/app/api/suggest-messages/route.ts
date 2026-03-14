@@ -7,9 +7,7 @@ export async function POST(request: Request) {
     const timestamp = new Date().toISOString();
     const prompt = `Create a list of three unique, open-ended and engaging questions as of ${timestamp}. Format as a single string with '||' separators...`; // Rest of your prompt
 
-    const model = google('models/gemini-1.5-pro-latest', {
-      topK: 400,
-    });
+    const model = google('gemini-1.5-pro-latest');
 
     const { text } = await generateText({
       model: model,

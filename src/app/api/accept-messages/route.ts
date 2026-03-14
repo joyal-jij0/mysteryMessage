@@ -1,14 +1,11 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/options";
+import { auth } from "@/auth";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
-import {User} from "next-auth"
 
 export async function POST(request: Request){
     await dbConnect()
 
-    const session = await getServerSession(authOptions)
-    const user: User = session?.user as User
+    const session = await auth()
 
     if(!session || !session.user){
         return Response.json(
@@ -20,6 +17,7 @@ export async function POST(request: Request){
         )
     }
 
+    const user = session.user
     const userId = user._id;
 
     const {acceptMessages} = await request.json()
@@ -65,8 +63,7 @@ export async function POST(request: Request){
 export async function GET(request: Request){
     await dbConnect()
 
-    const session = await getServerSession(authOptions)
-    const user: User = session?.user as User
+    const session = await auth()
 
     if(!session || !session.user){
         return Response.json(
@@ -78,7 +75,7 @@ export async function GET(request: Request){
         )
     }
 
-    const userId = user._id
+    const userId = session.user._id
 
     try {
         const foundUser = await UserModel.findById(userId)

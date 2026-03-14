@@ -1,14 +1,12 @@
 import dbConnect from '@/lib/dbConnect';
 import UserModel from '@/model/User';
 import mongoose from 'mongoose';
-import { User } from 'next-auth';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '../auth/[...nextauth]/options';
+import { auth } from '@/auth';
 
 export async function GET(request: Request) {
     await dbConnect();
-    const session = await getServerSession(authOptions);
-    const user: User = session?.user as User;
+    const session = await auth();
+    const user = session?.user;
     if (!session || !user) {
         return Response.json(
         { success: false, message: 'Not authenticated' },
@@ -45,6 +43,3 @@ export async function GET(request: Request) {
         );
     }
 }
-
-
-
